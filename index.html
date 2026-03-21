@@ -231,23 +231,43 @@ select option{background:#141720;}
 <div class="layout">
 <aside class="sidebar">
 
-  <div class="sidebar-section">
+<div class="sidebar-section">
     <div class="section-label">🔗 Blogger Connection</div>
     <div id="signin-block">
-      <button class="google-btn" onclick="signInWithGoogle()">
-        <img alt="G" src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg"/>Sign in with Google
+      <button class="google-signin-btn" onclick="signInWithGoogle()">
+        <img alt="Google" src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg"/>
+        Sign in with Google
       </button>
+      <div class="settings-note" style="margin-top:8px;">
+        Sign in with the Google account that <strong>owns</strong> your Sports 803 Blogger blog. Uses secure Google OAuth.
+      </div>
     </div>
-    <div class="signedin-block" id="signedin-block">
-      <div class="user-row">
-        <img class="user-avatar" id="user-avatar" src="" style="display:none;"/>
-        <div style="flex:1;min-width:0;"><div class="user-name" id="user-name"></div><div class="user-email" id="user-email"></div></div>
+    <div class="signed-in-block" id="signedin-block">
+      <div class="user-info-row">
+        <img alt="" class="user-avatar" id="user-avatar" src="" style="display:none;"/>
+        <div style="flex:1;min-width:0;">
+          <div class="user-name" id="user-name"></div>
+          <div class="user-email" id="user-email"></div>
+        </div>
         <button class="signout-btn" onclick="signOut()">Sign out</button>
       </div>
-      <div class="input-group"><label class="input-label">Blog ID</label><input id="blog-id" placeholder="3020785713747810415" type="text"/></div>
-      <div class="input-group"><label class="input-label">imgbb API Key <span class="badge-tip">UPLOADS</span></label><input id="imgbb-key" placeholder="your imgbb key" type="text"/></div>
-      <button class="btn btn-secondary btn-full" onclick="saveConfig()"><span class="btn-text">💾 Save Config</span></button>
+      <div class="input-group">
+        <label class="input-label">Blog ID</label>
+        <input id="blog-id" placeholder="3020785713747810415" type="text"/>
+      </div>
+      <div class="input-group">
+        <label class="input-label">imgbb API Key <span class="badge-tip">FAST UPLOADS</span></label>
+        <input id="imgbb-key" placeholder="paste your imgbb API key" type="text"/>
+      </div>
+      <button class="btn btn-secondary btn-full" onclick="saveConfig()">
+        <span class="btn-text">💾 Save Config</span>
+      </button>
+      <div class="settings-note">
+        Blog ID is in your Blogger dashboard URL.<br/>
+        imgbb key: free at <a href="https://api.imgbb.com" target="_blank">api.imgbb.com</a>
+      </div>
     </div>
+  </div>
   </div>
 
   <div class="divider"></div>
