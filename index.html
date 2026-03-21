@@ -786,7 +786,7 @@ function linkExistingPost(idx){var gd=detectedGames[idx];var inputEl=document.ge
 
 // ── OAUTH ────────────────────────────────────────────────────────────────────
 var oauthToken=null,oauthUser=null,tokenExpiresAt=0;
-var GOOGLE_CLIENT_ID=’’;
+var GOOGLE_CLIENT_ID=‘985566043500-5iktnbam2up75fehdkdfhp4sn829jrhd.apps.googleusercontent.com’;
 var IMGBB_API_KEY=‘c8cd5657bfdfc6c298c9366deebfa7a7’;
 function loadConfig(){
 try{
@@ -797,7 +797,7 @@ if(s.lang)document.getElementById(‘post-lang’).value=s.lang;
 if(s.style)document.getElementById(‘post-style’).value=s.style;
 if(s.publishMode)document.getElementById(‘publish-mode’).value=s.publishMode;
 if(s.activeLeagues)activeLeagues=new Set(s.activeLeagues);
-if(s.clientId)GOOGLE_CLIENT_ID=s.clientId;
+if(s.clientId)GOOGLE_CLIENT_ID=s.clientId||GOOGLE_CLIENT_ID;
 if(s.schedAmount)document.getElementById(‘sched-amount’).value=s.schedAmount;
 if(s.schedUnit){document.getElementById(‘sched-unit’).value=s.schedUnit;updateSchedUnitLimits();}
 updateSchedPreview();
@@ -811,7 +811,7 @@ config=s;updatePills();
 function saveConfig(){
 var iv=document.getElementById(‘imgbb-key’).value.trim();if(iv)IMGBB_API_KEY=iv;
 var pbu=(document.getElementById(‘player-base-url’)&&document.getElementById(‘player-base-url’).value.trim())||playerBaseUrl;playerBaseUrl=pbu;
-config={blogId:document.getElementById(‘blog-id’).value.trim(),imgbbKey:iv||IMGBB_API_KEY,lang:document.getElementById(‘post-lang’).value,style:document.getElementById(‘post-style’).value,publishMode:document.getElementById(‘publish-mode’).value,activeLeagues:Array.from(activeLeagues),clientId:GOOGLE_CLIENT_ID,oauthToken,oauthUser,tokenExpiresAt,schedAmount:document.getElementById(‘sched-amount’).value,schedUnit:document.getElementById(‘sched-unit’).value,globalLabels,globalSchedulerOn,scanAllMode,channelLibrary,playerBaseUrl:pbu};
+config={blogId:document.getElementById(‘blog-id’).value.trim(),imgbbKey:iv||IMGBB_API_KEY,lang:document.getElementById(‘post-lang’).value,style:document.getElementById(‘post-style’).value,publishMode:document.getElementById(‘publish-mode’).value,activeLeagues:Array.from(activeLeagues),clientId:‘985566043500-5iktnbam2up75fehdkdfhp4sn829jrhd.apps.googleusercontent.com’,oauthToken,oauthUser,tokenExpiresAt,schedAmount:document.getElementById(‘sched-amount’).value,schedUnit:document.getElementById(‘sched-unit’).value,globalLabels,globalSchedulerOn,scanAllMode,channelLibrary,playerBaseUrl:pbu};
 localStorage.setItem(‘s803_config_v3’,JSON.stringify(config));
 updatePills();toast(‘Saved!’,‘ok’);log(‘ok’,‘Config saved.’);
 }
@@ -822,7 +822,7 @@ if(oauthToken&&Date.now()<tokenExpiresAt){bp.className=‘pill dot ok’;bp.text
 else{bp.className=‘pill dot err’;bp.textContent=‘✗ Not signed in’;}
 }
 var gisClient=null;
-function signInWithGoogle(){if(!GOOGLE_CLIENT_ID){var cid=prompt(‘Paste your Google OAuth Client ID\n(ends in .apps.googleusercontent.com):’);if(!cid||!cid.trim())return;GOOGLE_CLIENT_ID=cid.trim();saveConfig();}requestGISToken();}
+function signInWithGoogle(){requestGISToken();}
 function requestGISToken(){if(typeof google===‘undefined’||!google.accounts){toast(‘GIS not loaded’,‘err’);return;}gisClient=google.accounts.oauth2.initTokenClient({client_id:GOOGLE_CLIENT_ID,scope:‘https://www.googleapis.com/auth/blogger https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/userinfo.email’,callback:function(r){if(r.error){toast(‘Sign-in failed: ‘+r.error,‘err’);return;}oauthToken=r.access_token;tokenExpiresAt=Date.now()+parseInt(r.expires_in||‘3600’,10)*1000;fetchGoogleProfile();}});gisClient.requestAccessToken({prompt:‘select_account’});}
 async function fetchGoogleProfile(){try{var d=await(await fetch(‘https://www.googleapis.com/oauth2/v3/userinfo’,{headers:{‘Authorization’:‘Bearer ‘+oauthToken}})).json();oauthUser={name:d.name||’’,email:d.email||’’,picture:d.picture||’’};setSignedInUI(oauthUser);saveConfig();log(‘ok’,’✓ Signed in as ’+oauthUser.email);toast(‘✓ Signed in as ‘+oauthUser.name,‘ok’);}catch(e){log(‘err’,‘Profile: ‘+e.message);setSignedInUI(null);}}
 function setSignedInUI(user){var si=document.getElementById(‘signin-block’),sd=document.getElementById(‘signedin-block’);if(!si||!sd)return;if(user&&oauthToken){si.style.display=‘none’;sd.classList.add(‘visible’);document.getElementById(‘user-name’).textContent=user.name||’’;document.getElementById(‘user-email’).textContent=user.email||’’;var av=document.getElementById(‘user-avatar’);if(user.picture){av.src=user.picture;av.style.display=‘block’;}else av.style.display=‘none’;}else{si.style.display=‘block’;sd.classList.remove(‘visible’);}updatePills();}
