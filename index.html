@@ -203,17 +203,18 @@ select option{background:#141720;}
 .divider{height:1px;background:var(--border);margin:2px 0;}
 .settings-note{font-size:10px;color:var(--muted);line-height:1.6;background:var(--s2);border:1px solid var(--border);border-radius:var(--r);padding:8px 10px;}
 .settings-note a{color:var(--accent2);}
-/* Google */
-.google-btn{display:flex;align-items:center;justify-content:center;gap:9px;width:100%;background:#fff;color:#3c3c3c;border:none;border-radius:var(--r);padding:9px 14px;font-family:'Syne',sans-serif;font-size:12px;font-weight:700;cursor:pointer;}
-.google-btn:hover{background:#f0f0f0;}
-.google-btn img{width:17px;height:17px;}
-.signedin-block{display:none;flex-direction:column;gap:8px;}
-.signedin-block.visible{display:flex;}
-.user-row{display:flex;align-items:center;gap:8px;background:var(--s2);border:1px solid var(--border);border-radius:var(--r);padding:8px 10px;}
-.user-avatar{width:30px;height:30px;border-radius:50%;object-fit:cover;flex-shrink:0;border:1px solid var(--border2);}
-.user-name{font-size:12px;font-weight:700;color:var(--text);}
-.user-email{font-size:10px;color:var(--muted);font-family:'JetBrains Mono',monospace;}
-.signout-btn{margin-left:auto;flex-shrink:0;background:rgba(255,71,87,.1);color:var(--red);border:1px solid rgba(255,71,87,.25);border-radius:6px;padding:3px 9px;font-family:'Syne',sans-serif;font-size:10px;font-weight:700;cursor:pointer;}
+/* Google Sign-In */
+.google-signin-btn{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;background:#fff;color:#3c3c3c;border:none;border-radius:var(--r);padding:10px 16px;font-family:'Syne',sans-serif;font-size:12px;font-weight:700;cursor:pointer;transition:background .15s,box-shadow .15s;}
+.google-signin-btn:hover{background:#f0f0f0;box-shadow:0 2px 8px rgba(0,0,0,.3);}
+.google-signin-btn img{width:18px;height:18px;}
+.signed-in-block{display:none;flex-direction:column;gap:10px;}
+.signed-in-block.visible{display:flex;}
+.user-info-row{display:flex;align-items:center;gap:10px;background:var(--s2);border:1px solid var(--border);border-radius:var(--r);padding:10px 12px;}
+.user-avatar{width:32px;height:32px;border-radius:50%;object-fit:cover;flex-shrink:0;border:1px solid var(--border2);}
+.user-name{font-size:12px;font-weight:700;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.user-email{font-size:10px;color:var(--muted);font-family:'JetBrains Mono',monospace;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.signout-btn{margin-left:auto;flex-shrink:0;background:rgba(255,71,87,.1);color:var(--red);border:1px solid rgba(255,71,87,.25);border-radius:6px;padding:4px 10px;font-family:'Syne',sans-serif;font-size:10px;font-weight:700;cursor:pointer;transition:background .15s;}
+.signout-btn:hover{background:rgba(255,71,87,.2);}
 @media(max-width:900px){.layout{grid-template-columns:1fr;}.sidebar{position:static;max-height:none;border-right:none;border-bottom:1px solid var(--border);}}
 </style>
 </head>
@@ -231,7 +232,7 @@ select option{background:#141720;}
 <div class="layout">
 <aside class="sidebar">
 
-<div class="sidebar-section">
+  <div class="sidebar-section">
     <div class="section-label">🔗 Blogger Connection</div>
     <div id="signin-block">
       <button class="google-signin-btn" onclick="signInWithGoogle()">
@@ -267,7 +268,6 @@ select option{background:#141720;}
         imgbb key: free at <a href="https://api.imgbb.com" target="_blank">api.imgbb.com</a>
       </div>
     </div>
-  </div>
   </div>
 
   <div class="divider"></div>
